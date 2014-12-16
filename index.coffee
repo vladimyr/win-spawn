@@ -1,3 +1,4 @@
+_            = require 'lodash'
 ChildProcess = require 'child_process'
 
 spawn = (command, args, options) ->
