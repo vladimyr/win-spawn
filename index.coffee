@@ -9,7 +9,7 @@ spawn = (command, args, options) ->
     if args?
       cmdArgs = args.filter (arg) -> arg?
       cmdArgs = cmdArgs.map (arg) ->
-        if command in ['explorer.exe', 'explorer'] and /^\/[a-zA-Z]+,.*$/.test(arg)
+        if typeof arg isnt "string" or command in ['explorer.exe', 'explorer'] and /^\/[a-zA-Z]+,.*$/.test(arg)
           # Don't wrap /root,C:\folder style arguments to explorer calls in
           # quotes since they will not be interpreted correctly if they are
           arg
@@ -24,8 +24,8 @@ spawn = (command, args, options) ->
     cmdArgs = ['/s', '/c', "\"#{cmdArgs.join(' ')}\""]
     cmdOptions = _.clone(options)
     cmdOptions.windowsVerbatimArguments = true
-    @process = ChildProcess.spawn(process.env.comspec or 'cmd.exe', cmdArgs, cmdOptions)
+    ChildProcess.spawn(process.env.comspec or 'cmd.exe', cmdArgs, cmdOptions)
   else
-    @process = ChildProcess.spawn(command, args, options)
+    ChildProcess.spawn(command, args, options)
 
 module.exports = spawn

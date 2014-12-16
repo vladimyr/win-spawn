@@ -17,7 +17,7 @@
           return arg != null;
         });
         cmdArgs = cmdArgs.map(function(arg) {
-          if ((command === 'explorer.exe' || command === 'explorer') && /^\/[a-zA-Z]+,.*$/.test(arg)) {
+          if (typeof arg !== "string" || (command === 'explorer.exe' || command === 'explorer') && /^\/[a-zA-Z]+,.*$/.test(arg)) {
             return arg;
           } else {
             return "\"" + (arg.toString().replace(/"/g, '\\"')) + "\"";
@@ -34,9 +34,9 @@
       cmdArgs = ['/s', '/c', "\"" + (cmdArgs.join(' ')) + "\""];
       cmdOptions = _.clone(options);
       cmdOptions.windowsVerbatimArguments = true;
-      return this.process = ChildProcess.spawn(process.env.comspec || 'cmd.exe', cmdArgs, cmdOptions);
+      return ChildProcess.spawn(process.env.comspec || 'cmd.exe', cmdArgs, cmdOptions);
     } else {
-      return this.process = ChildProcess.spawn(command, args, options);
+      return ChildProcess.spawn(command, args, options);
     }
   };
 
