@@ -6,7 +6,6 @@
 
   spawn = function(command, args, options) {
     var cmdArgs, cmdOptions;
-    this.emitter = new Emitter;
     if (options == null) {
       options = {};
     }

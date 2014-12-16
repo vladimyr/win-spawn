@@ -1,7 +1,6 @@
 ChildProcess = require 'child_process'
 
 spawn = (command, args, options) ->
-  @emitter = new Emitter
   options ?= {}
   # Related to joyent/node#2318
   if process.platform is "win32"
